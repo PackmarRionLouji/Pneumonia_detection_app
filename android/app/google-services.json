@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "571936547300",
+    "project_id": "finalyearproject-6be5e",
+    "storage_bucket": "finalyearproject-6be5e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:571936547300:android:85ba1d91d78ce134b3a7f1",
+        "android_client_info": {
+          "package_name": "com.instaflutter.free_login_screen"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "571936547300-t93p7680glja68n74ivdrqudgpr67kp7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBUelQXLPDSva2cN_z8YEPaDl0YCbArOvU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "571936547300-t93p7680glja68n74ivdrqudgpr67kp7.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "571936547300-sidj33p3sko7fph3oh253414usj86cad.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.rion.app"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
