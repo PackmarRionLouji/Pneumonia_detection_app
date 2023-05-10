@@ -48,19 +48,11 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
 
     on<ValidateFieldsEvent>((event, emit) async {
       if (event.key.currentState?.validate() ?? false) {
-        if (event.acceptEula) {
-          event.key.currentState!.save();
-          emit(ValidFields());
-        } else {
-          emit(SignUpFailureState(
-              errorMessage: 'Please accept our terms of use.'));
-        }
+        event.key.currentState!.save();
+        emit(ValidFields());
       } else {
         emit(SignUpFailureState(errorMessage: 'Please fill required fields.'));
       }
     });
-
-    on<ToggleEulaCheckboxEvent>(
-        (event, emit) => emit(EulaToggleState(event.eulaAccepted)));
   }
 }

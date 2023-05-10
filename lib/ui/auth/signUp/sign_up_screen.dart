@@ -242,8 +242,7 @@ class _SignUpState extends State<SignUpScreen> {
                               textInputAction: TextInputAction.done,
                               onFieldSubmitted: (_) =>
                                   context.read<SignUpBloc>().add(
-                                        ValidateFieldsEvent(_key,
-                                            acceptEula: acceptEULA),
+                                        ValidateFieldsEvent(_key),
                                       ),
                               obscureText: true,
                               validator: (val) => validateConfirmPassword(
@@ -286,60 +285,11 @@ class _SignUpState extends State<SignUpScreen> {
                                 ),
                               ),
                               onPressed: () => context.read<SignUpBloc>().add(
-                                    ValidateFieldsEvent(_key,
-                                        acceptEula: acceptEULA),
+                                    ValidateFieldsEvent(_key),
                                   ),
                             ),
                           ),
                           const SizedBox(height: 24),
-                          ListTile(
-                            trailing: BlocBuilder<SignUpBloc, SignUpState>(
-                              buildWhen: (old, current) =>
-                                  current is EulaToggleState && old != current,
-                              builder: (context, state) {
-                                if (state is EulaToggleState) {
-                                  acceptEULA = state.eulaAccepted;
-                                }
-                                return Checkbox(
-                                  onChanged: (value) =>
-                                      context.read<SignUpBloc>().add(
-                                            ToggleEulaCheckboxEvent(
-                                              eulaAccepted: value!,
-                                            ),
-                                          ),
-                                  activeColor: const Color(colorPrimary),
-                                  value: acceptEULA,
-                                );
-                              },
-                            ),
-                            title: RichText(
-                              textAlign: TextAlign.left,
-                              text: TextSpan(
-                                children: [
-                                  const TextSpan(
-                                    text:
-                                        'By creating an account you agree to our ',
-                                    style: TextStyle(color: Colors.grey),
-                                  ),
-                                  TextSpan(
-                                    style: const TextStyle(
-                                      color: Colors.blueAccent,
-                                    ),
-                                    text: 'Terms of Use',
-                                    recognizer: TapGestureRecognizer()
-                                      ..onTap = () async {
-                                        if (await canLaunchUrl(
-                                            Uri.parse(eula))) {
-                                          await launchUrl(
-                                            Uri.parse(eula),
-                                          );
-                                        }
-                                      },
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
                         ],
                       ),
                     );
