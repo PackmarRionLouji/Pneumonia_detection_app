@@ -17,6 +17,7 @@ dependencies:
       url: https://github.com/mostafaAbdelazim/progress_dialog.git
   flutter_facebook_auth: ^5.0.6
   http: ^0.13.5
+  http_parser:
   image_picker: ^0.8.6
   cached_network_image: ^3.2.2
   smooth_page_indicator: ^1.0.0+2

@@ -42,6 +42,15 @@ class FireStoreUtils {
     return downloadUrl.toString();
   }
 
+  static Future<String> uploadImageToServer(Uint8List imageData) async {
+    Reference upload = storage.child("images.png");
+    UploadTask uploadTask =
+    upload.putData(imageData, SettableMetadata(contentType: 'image/jpeg'));
+    var downloadUrl =
+    await (await uploadTask.whenComplete(() {})).ref.getDownloadURL();
+    return downloadUrl.toString();
+  }
+
   /// login with email and password with firebase
   /// @param email user email
   /// @param password user password
