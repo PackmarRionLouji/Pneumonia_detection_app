@@ -20,7 +20,6 @@ import '../auth/signUp/sign_up_bloc.dart';
 
 class HomeScreen extends StatefulWidget {
   final User user;
-
   const HomeScreen({Key? key, required this.user}) : super(key: key);
 
   @override
@@ -31,6 +30,7 @@ class _HomeState extends State<HomeScreen> {
   late User user;
   XFile? image;
   final ImagePicker picker = ImagePicker();
+  bool loading = false;
 
   @override
   void initState() {
@@ -39,10 +39,9 @@ class _HomeState extends State<HomeScreen> {
   }
 
   Future getImage(ImageSource media) async {
+    loading = true;
     var img = await picker.pickImage(source: media);
     File imageFile = File(img!.path);
-    Uint8List imageRaw = await imageFile.readAsBytes();
-    String data = await FireStoreUtils.uploadImageToServer(imageRaw);
     var map = <String, dynamic>{};
     map['image'] = img.path;
     try {
@@ -71,6 +70,7 @@ class _HomeState extends State<HomeScreen> {
     setState(() {
       image = img;
     });
+    loading = false;
   }
 
   void myAlert() {
@@ -215,7 +215,7 @@ class _HomeState extends State<HomeScreen> {
         ),
         body: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -250,14 +250,16 @@ class _HomeState extends State<HomeScreen> {
               Padding(
                 padding: const EdgeInsets.only(
                     left: 8.0, top: 32, right: 8, bottom: 8),
-                child: Stack(
-                  alignment: Alignment.bottomCenter,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     ElevatedButton(
                       onPressed: () {
                         myAlert();
                       },
-                      child: const Text('Upload Photo'),
+                      child: loading ? const Text('Loading') : const Text('Upload Photo'),
                     ),
                     const SizedBox(
                       height: 10,
@@ -265,13 +267,18 @@ class _HomeState extends State<HomeScreen> {
                     //if image not null show the image
                     //if image null show text
                     image != null
-                        ? Stack(
+                        ? Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.max,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         ElevatedButton(
                           onPressed: () {
-                            image = null;
+                            setState(() {
+                              image = null;
+                            });
                           },
-                          child: const Text('Clean Image'),
+                          child: const Text('Clear Image'),
                         ),
                         const SizedBox(
                           height: 40,
