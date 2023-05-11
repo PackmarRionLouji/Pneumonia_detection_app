@@ -31,7 +31,7 @@ class _HomeState extends State<HomeScreen> {
   XFile? image;
   final ImagePicker picker = ImagePicker();
   bool loading = false;
-
+  String modelValue = '0';
   @override
   void initState() {
     super.initState();
@@ -55,7 +55,7 @@ class _HomeState extends State<HomeScreen> {
           debugPrint('Hello world');
           var responsed = await http.Response.fromStream(response);
           final jsonResponse = json.decode(responsed.body);
-          log(jsonResponse);
+          modelValue = jsonResponse.toString();
           break;
       // return Success(Location.fromMap(data));
         default:
@@ -295,7 +295,8 @@ class _HomeState extends State<HomeScreen> {
                               height: 300,
                             ),
                           ),
-                        )
+                        ),
+    Text(modelValue != null ? 'Pneumonia $modelValue' : 'Pneumonia')
                       ],
                     )
                         :
